@@ -9,13 +9,14 @@ class Car {
     }
 
     honk() {
-        console.log(`Tuut tuut! Brand: ${this.brand}, Model: ${this.model}, Year: ${this.year}, Color: ${this.color}, Price: $${this.price}, Gas: ${this.gas} liters`);
+        console.log(`Tuut tuut! ${this.getCarInfo()} Gas: ${this.gas} liters`);
     }
 
     race(turns) {
+        console.log('\nRace Simulation:');
         for (let turn = 1; turn <= turns; turn++) {
             this.consumeGas();
-            console.log(`Turn ${turn}: ${this.brand} ${this.model} - Gas Remaining: ${this.gas} liters`);
+            console.log(`Turn ${turn}: ${this.getCarInfo()} Gas Remaining: ${this.gas} liters`);
         }
     }
 
@@ -27,8 +28,13 @@ class Car {
     calculateGasLoss() {
         const baseLoss = 5;
         const yearDifference = new Date().getFullYear() - this.year;
-        const yearLoss = yearDifference > 0 ? yearDifference : 0;
+        const yearLoss = Math.max(0, yearDifference);
 
         return baseLoss + yearLoss;
     }
+
+    getCarInfo() {
+        return `Brand: ${this.brand}, Model: ${this.model}, Year: ${this.year}, Color: ${this.color}, Price: $${this.price}`;
+    }
 }
+
